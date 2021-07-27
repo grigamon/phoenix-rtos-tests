@@ -176,7 +176,7 @@ TEST(resolve_path, missing_leaf)
 	check_and_free_str("/etc/missing_file", resolve_path("/etc/missing_file", NULL, 1, 1));
 
 	check_null_and_errno(ENOENT, resolve_path("/etc/missing_dir/.", NULL, 1, 0));
-	check_and_free_str("/etc/missing_dir", resolve_path("/etc/missing_dir/.", NULL, 1, 1));
+	check_and_free_str(NULL, resolve_path("/etc/missing_dir/.", NULL, 1, 1));
 }
 #endif
 
