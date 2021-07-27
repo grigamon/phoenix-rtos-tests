@@ -37,7 +37,7 @@ DEFAULT_TARGETS = [target for target in ALL_TARGETS
 DEVICE_TARGETS = ['armv7m7-imxrt106x']
 
 # Port to communicate with hardware board
-DEVICE_SERIAL = "/dev/ttyACM0"
+DEVICE_SERIAL = "/dev/mimxrt1064-debug-usb"
 
 
 def rootfs(target: str) -> Path:
