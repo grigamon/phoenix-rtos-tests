@@ -45,6 +45,18 @@ def wait_for_dev(port, timeout=0):
             raise TimeoutError
 
 
+def wait_for_disappear(port, timeout=0):
+    asleep = 0
+
+    # naive wait for dev disappear
+    while os.path.exists(port):
+        time.sleep(0.5)
+        asleep += 0.5
+        # timeout means the device will not disappear
+        if timeout and asleep >= timeout:
+            break
+
+
 class Psu:
     """Wrapper for psu program"""
 
