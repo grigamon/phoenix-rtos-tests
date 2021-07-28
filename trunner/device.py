@@ -408,13 +408,16 @@ class IMXRT106xRunner(DeviceRunner):
             logging.error('Serial port not found!\n')
             sys.exit(1)
 
-    def boot(self, serial_downloader=False):
+    def boot(self, serial_downloader=False, restart=True):
         if serial_downloader:
             self.boot_gpio.low()
         else:
             self.boot_gpio.high()
 
-        self.reset()
+        if restart:
+            self.restart()
+        else:
+            self.reset()
 
     def flash(self):
         self.boot(serial_downloader=True)
@@ -446,9 +449,10 @@ class IMXRT106xRunner(DeviceRunner):
 
         phd = None
         load_dir = str(rootfs(test.target) / 'bin')
+        self.boot()
         try:
             with PloTalker(self.port) as plo:
-                self.boot()
+                self.boot(restart=False)
                 plo.wait_prompt()
 
                 if not test.exec_cmd:
