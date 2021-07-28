@@ -9,6 +9,7 @@ import time
 import pexpect
 import pexpect.fdpexpect
 import serial
+import subprocess
 
 from pexpect.exceptions import TIMEOUT, EOF
 
@@ -48,7 +49,7 @@ def wait_for_dev(port, timeout=0):
 def wait_for_disappear(port, timeout=0):
     asleep = 0
 
-    # naive wait for dev disappear
+    # naive wait for dev dissapear
     while os.path.exists(port):
         time.sleep(0.5)
         asleep += 0.5
@@ -362,12 +363,50 @@ class IMXRT106xRunner(DeviceRunner):
         self.phoenixd_port = phoenixd_port
         self.reset_gpio = GPIO(17)
         self.reset_gpio.high()
+        self.restart_gpio = GPIO(2)
+        self.restart_gpio.high()
         self.boot_gpio = GPIO(4)
 
     def reset(self):
         self.reset_gpio.low()
         time.sleep(0.050)
         self.reset_gpio.high()
+
+    def restart(self):
+        # without powering down rpi ports eval kit is partially powered through usb
+        rpi_ports_off = subprocess.run([
+            'uhubctl',
+            '-l', '2',
+            '-a', '0'],
+            stdout=subprocess.DEVNULL
+        )
+        if rpi_ports_off.returncode != 0:
+            logging.error('uhubctl failed!\n')
+            raise Exception('RPi ports power down failed!')
+
+        self.restart_gpio.low()
+        time.sleep(0.500)
+        self.reset_gpio.low()
+        self.restart_gpio.high()
+        time.sleep(0.500)
+        self.reset_gpio.high()
+        rpi_ports_on = subprocess.run([
+            'uhubctl',
+            '-l', '2',
+            '-a', '1'],
+            stdout=subprocess.DEVNULL
+        )
+        if rpi_ports_on.returncode != 0:
+            logging.error('uhubctl failed!\n')
+            raise Exception('RPi ports power up failed!')
+
+        # after power on there is pre-restart device, which will disappear
+        wait_for_disappear(DEVICE_SERIAL, timeout=5)
+        try:
+            wait_for_dev(DEVICE_SERIAL, timeout=5)
+        except TimeoutError:
+            logging.error('Serial port not found!\n')
+            sys.exit(1)
 
     def boot(self, serial_downloader=False):
         if serial_downloader:
