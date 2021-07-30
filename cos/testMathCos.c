@@ -2,7 +2,7 @@
 1. Accuracy of cos() functions for normal cases [cosNormalCases]
 2. Accuracy of cos() function in the edges [cosEdgesCases]
 3. Checking the parity of cos() function (cos x = cos(-x)) [cosParityCases]
-4. Checking the frequency of cos() function (cos x = cos (x+ T)) [cosFrequencyCases]
+4. Checking the frequency of cos() function (cos x = cos (x+ T)) [cosPeriodicityCases]
 5. Checking the repeatability (since that the most of all cos() functions implementations use Maclaurin) [cosRepeatabilityCases]
 */
 
@@ -34,7 +34,7 @@ TEST_TEAR_DOWN(testCos)
 
 
 /* 1. cosNormalCases
-Since we want to verify just the accuracy of cos() function for normal cases we will use remarkable angles and it's enough to test the robustness.
+Since we want to verify the accuracy of cos() function for normal cases we will use remarkable angles.
 */
 TEST(testCos, cosNormalCases)
 {
@@ -128,10 +128,11 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-2*M_PI), cos(2*M_PI));
 }
 
 
-/*4.cosFrequencyCases
-Once cos() is a periodic function which format is cos x = cos (x + T) and T=2*pi, iterating the function as below it's enough to test the robustness.
+/*4.cosPeriodicityCases
+Once cos() is a periodic function which format is cos x = cos (x + T) and T=2*pi it's necessary to check the Periodicity. For that it's necessary to iterating 
+the function as below and check the tolerance for each iteration.
 */
-TEST(testCos, cosFrequencyCases)
+TEST(testCos, cosPeriodicityCases)
 {
 	int i;
 
@@ -139,11 +140,7 @@ TEST(testCos, cosFrequencyCases)
 	{
 		if (cos(M_PI/6 + 2*M_PI*i) - cos(M_PI/6)>TOLERANCE)
 		{
-			TEST_FAIL_MESSAGE("FAIL BLA BLA TOLERANCE");
-		}
-		if (i==500)
-		{
-			TEST_FAIL_MESSAGE("FAIL BLA BLA");
+			TEST_FAIL_MESSAGE("FAILED during the periodicity testing.");
 		}
 	}
 	TEST_PASS();
@@ -188,7 +185,7 @@ TEST_GROUP_RUNNER(testCos)
 	RUN_TEST_CASE(testCos, cosNormalCases);
 //	RUN_TEST_CASE(testCos, cosEdgesCases);
 //	RUN_TEST_CASE(testCos, cosParityCases);
-	RUN_TEST_CASE(testCos, cosFrequencyCases);
+	RUN_TEST_CASE(testCos, cosPeriodicityCases);
 //	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
 }
 
