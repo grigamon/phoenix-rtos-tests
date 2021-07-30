@@ -284,7 +284,7 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE,cos(2*M_PI + 2*M_PI), cos(2*M_PI));
 /*9.cosRepeatabilityCasesControl
 The same idea of cosRepeatabilityCases, but using known values.
 */
-TEST(testCos, cosRepeatabilityControl)
+TEST(testCos, cosRepeatabilityCasesControl)
 {
 //First quadrant
 TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6), cos(M_PI/6));
