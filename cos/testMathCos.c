@@ -2,7 +2,7 @@
 1. Accuracy of cos() functions for normal cases [cosNormalCases]
 2. Accuracy of cos() function in the edges [cosEdgesCases]
 3. Checking the parity of cos() function (cos x = cos(-x)) [cosParityCases]
-4. Checking the frequency of cos() function (cos x = cos (x+ 2*pi)) [cosFrequencyCases]
+4. Checking the frequency of cos() function (cos x = cos (x+ T)) [cosFrequencyCases]
 5. Checking the repeatability (since that the most of all cos() functions implementations use Maclaurin) [cosRepeatabilityCases]
 */
 
@@ -13,6 +13,7 @@
 
 #define TOLERANCE	0.0001
 #define DELTA_RADIANS	0.00001
+#define MAXIMUM_ITERATION 1000
 
 
 TEST_GROUP(testCos);
@@ -97,7 +98,8 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 1.0, cos(2*M_PI + DELTA_RADIANS));
 }
 
 
-//3.cosParityCases
+/*3.cosParityCases
+*/
 TEST(testCos, cosParityCases)
 {
 //First quadrant
@@ -126,31 +128,18 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-2*M_PI), cos(2*M_PI));
 }
 
 
-//4.cosFrequencyCases
+/*4.cosFrequencyCases
+Once cos() is a periodic function wich format is cos x = cos (x + T) and T=2*pi, iterating the it's enough to test the robustness
+*/
 TEST(testCos, cosFrequencyCases)
 {
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(M_PI/6 + 2*M_PI), cos(M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(M_PI/4 + 2*M_PI), cos(M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(M_PI/3 + 2*M_PI), cos(M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(M_PI/2 + 2*M_PI), cos(M_PI/2));
+	int i;
 
-//Second quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(2*M_PI/3 + 2*M_PI), cos(2*M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(3*M_PI/4 + 2*M_PI), cos(3*M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(5*M_PI/6 + 2*M_PI), cos(5*M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(M_PI + 2*M_PI), cos(M_PI));
+	for (i=1; i<=MAXIMUM_ITERATION, i++)
+	{
+		TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(M_PI/6));
+	}
 
-//Third quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(7*M_PI/6 + 2*M_PI), cos(7*M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(5*M_PI/4 + 2*M_PI), cos(5*M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(4*M_PI/3 + 2*M_PI), cos(4*M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(3*M_PI/2 + 2*M_PI), cos(3*M_PI/2));
-
-//Fourth quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(5*M_PI/3 + 2*M_PI), cos(5*M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(7*M_PI/4 + 2*M_PI), cos(7*M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(11*M_PI/6 + 2*M_PI), cos(11*M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(2*M_PI + 2*M_PI), cos(2*M_PI));
 }
 
 //5.cosRepeatabilityCases
@@ -191,7 +180,7 @@ TEST_GROUP_RUNNER(testCos)
 	RUN_TEST_CASE(testCos, cosNormalCases);
 //	RUN_TEST_CASE(testCos, cosEdgesCases);
 //	RUN_TEST_CASE(testCos, cosParityCases);
-//	RUN_TEST_CASE(testCos, cosFrequencyCases);
+	RUN_TEST_CASE(testCos, cosFrequencyCases);
 //	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
 }
 
