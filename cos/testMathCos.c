@@ -11,8 +11,8 @@
 #include "unity_fixture.h"
 
 
-#define TOLERANCE = 0.0001;
-#define DELTA_RADIANS = 0.00001;
+#define TOLERANCE 0.0001;
+#define DELTA_RADIANS 0.00001;
 
 
 TEST_GROUP(testCos);
@@ -65,7 +65,7 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 1.0, cos(2*M_PI));
 
 
 /* 2.cosEdgesCases
-For this group of tests we will exercise the accuracy of cos() function in the edges
+For this group of tests we will exercise the accuracy of cos() function in the edges, assuming as a input of function a randomic x + a small value DELTA_RADIANS
 */
 TEST(testCos, cosEdgesCases)
 {
