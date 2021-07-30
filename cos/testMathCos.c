@@ -104,7 +104,7 @@ for (k=1; k<=MAXIMUM_ITERATION; k++)
 {
 	if (cos(-radRandParity)!=cos(radRandParity))
 	{
-		TEST_FAIL_MESSAGE("FAILED during the Parity check testing.");
+		TEST_FAIL_MESSAGE("FAILED during the Parity check testing. Negative %.5f, Positive %.5f", cos(-radRandParity), cos(radRandParity));
 	}
 	if (k==500)
 	{
