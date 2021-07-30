@@ -11,8 +11,8 @@
 #include "unity_fixture.h"
 
 
-#define TOLERANCE 0.0001;
-#define DELTA_RADIANS 0.00001;
+#define TOLERANCE 0.0001
+#define DELTA_RADIANS 0.00001
 
 
 TEST_GROUP(testCos);
@@ -33,7 +33,7 @@ TEST_TEAR_DOWN(testCos)
 
 
 /* 1. cosNormalCases
-Since we want to verify the accuracy of cos() function for normal cases, will not be necessary exercise it exhaustively.
+Since we want to verify just the accuracy of cos() function for normal cases we will use remarkable angles.
 */
 TEST(testCos, cosNormalCases)
 {
