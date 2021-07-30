@@ -1,4 +1,4 @@
-/* Test Cases groups
+/* Test Cases groups (assuming those 5 high level requirements)
 1. Accuracy of cos() functions for normal cases [cosNormalCases]
 2. Accuracy of cos() function in the edges [cosEdgesCases]
 3. Checking the parity of cos() function (cos x = cos(-x)) [cosParityCases]
@@ -129,7 +129,7 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-2*M_PI), cos(2*M_PI));
 
 
 /*4.cosFrequencyCases
-Once cos() is a periodic function wich format is cos x = cos (x + T) and T=2*pi, iterating the it's enough to test the robustness
+Once cos() is a periodic function wich format is cos x = cos (x + T) and T=2*pi, iterating the function it's enough to test the robustness
 */
 TEST(testCos, cosFrequencyCases)
 {
@@ -137,7 +137,7 @@ TEST(testCos, cosFrequencyCases)
 
 	for (i=1; i<=MAXIMUM_ITERATION; i++)
 	{
-		TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(M_PI/6));
+		TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i+1), cos(M_PI/6));
 	}
 
 }
