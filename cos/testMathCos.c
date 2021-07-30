@@ -3,7 +3,7 @@
 2. Accuracy of cos() function in the edges [cosEdgesCases]
 3. Checking the parity of cos() function (cos x = cos(-x)) [cosParityCases]
 4. Checking the frequency of cos() function (cos x = cos (x+ T)) [cosPeriodicityCases]
-5. Checking the repeatability (since that the most of all cos() functions implementations use Maclaurin) [cosRepeatabilityCases]
+5. Checking the repeatability [cosRepeatabilityCases]
 6. Accuracy of cos() function in the edges [cosEdgesCasesControl] using known values as inputs.
 7. Checking the parity of cos() function (cos x = cos(-x)) [cosParityCasesControl] using known values as inputs.
 8. Checking the frequency of cos() function (cos x = cos (x+ T)) [cosPeriodicityCasesControl] using known values as inputs.
@@ -37,6 +37,7 @@ TEST_TEAR_DOWN(testCos)
 /*
 */
 }
+
 
 /*------------------------------------------------------------ Begin Exhaustives tests ------------------------------------------------------------*/
 
@@ -74,7 +75,7 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 1.0, cos(2*M_PI));
 
 /* 2.cosEdgesCases
 For this group of tests we will exercise the accuracy of cos() function in the edges, using for comparison: randomic x + a small value DELTA_RADIANS and
-the same randomic x - a small value DELTA_RADIANS
+the same randomic x - a small value DELTA_RADIANS.
 */
 TEST(testCos, cosEdgesCases)
 {
@@ -85,7 +86,7 @@ radRand = rand() % MAXIMUM_RANDOM;
 
 for (j=1; j<=MAXIMUM_ITERATION; j++)
 {
-	if (cos(radRand + DELTA_RADIANS) - cos(radRand - DELTA_RADIANS)>TOLERANCE)
+	if (fabs(fabs(cos(radRand + DELTA_RADIANS)) - fabs(cos(radRand - DELTA_RADIANS)))>TOLERANCE)
 	{
 		TEST_FAIL_MESSAGE("FAILED during the Edges comparison testing.");
 	}
@@ -107,7 +108,7 @@ radRandParity = rand() % MAXIMUM_RANDOM;
 
 for (k=1; k<=MAXIMUM_ITERATION; k++)
 {
-	if (cos(-radRandParity)-cos(radRandParity)>TOLERANCE)
+	if (fabs(cos(-radRandParity)-cos(radRandParity))>TOLERANCE)
 	{
 		TEST_FAIL_MESSAGE("FAILED during the Parity check testing.");
 	}	
@@ -117,8 +118,8 @@ TEST_PASS();
 
 
 /*4.cosPeriodicityCases
-Once cos() is a periodic function which format is cos x = cos (x + T) and T=2*pi it's necessary to check the Periodicity. For that it's necessary to iterating 
-the function as below and check the tolerance for each iteration.
+Once cos() is a periodic function which format is x = cos (x + T) and T=2*n*pi it's necessary to check the Periodicity, using randomic values as 
+inputs to validate the assertion cos x = cos (x + T), where T=2*n*pi and n is a integer.
 */
 TEST(testCos, cosPeriodicityCases)
 {
@@ -126,7 +127,7 @@ TEST(testCos, cosPeriodicityCases)
 
 	for (i=1; i<=MAXIMUM_ITERATION; i++)
 	{
-		if (cos(M_PI/6 + 2*M_PI*i) - cos(M_PI/6)>TOLERANCE)
+		if (fabs(cos(M_PI/6 + 2*M_PI*i) - cos(M_PI/6))>TOLERANCE)
 		{
 			TEST_FAIL_MESSAGE("FAILED during the periodicity testing.");
 		}
@@ -137,7 +138,7 @@ TEST(testCos, cosPeriodicityCases)
 
 /*5.cosRepeatabilityCases
 Since that the most of all cos() functions implementations use Maclaurin, it's necessary to check the repeatability of the function. For this purpose, in this test,
-we will compare a random value of angle several times.
+we will compare a random value of angle as input to validate the assertion cos x = cos x for any x.
 */
 TEST(testCos, cosRepeatabilityCases)
 {
@@ -151,7 +152,7 @@ for (l=1; l<=MAXIMUM_ITERATION; l++)
 	comparisonValue1 = cos(radRandRepeatability);
 	comparisonValue2 = cos(radRandRepeatability);
 
-	if (comparisonValue1-comparisonValue2>TOLERANCE)
+	if (fabs(comparisonValue1-comparisonValue2)>TOLERANCE)
 	{
 		TEST_FAIL_MESSAGE("FAILED during the Repeatabilitty check testing.");
 	}
@@ -162,7 +163,9 @@ TEST_PASS();
 /*------------------------------------------------------------ End Exhaustives tests ------------------------------------------------------------*/
 
 
-/*------------------------------------------------------------ Begin control tests ------------------------------------------------------------*/
+/*------------------------------------------------------------ Begin Control tests ------------------------------------------------------------*/
+
+/*Those tests could be used to calibrate the TOLERANCE and DELTA_RADIANS.*/
 
 /* 6.cosEdgesCasesControl
 The same idea of cosEdgesCases, but using known values.
@@ -311,7 +314,7 @@ TEST_ASSERT_EQUAL_FLOAT(cos(11*M_PI/6), cos(11*M_PI/6));
 TEST_ASSERT_EQUAL_FLOAT(cos(2*M_PI), cos(2*M_PI));
 }
 
-/*------------------------------------------------------------ End control tests ------------------------------------------------------------*/
+/*------------------------------------------------------------ End Control tests ------------------------------------------------------------*/
 
 void runner(void)
 {
