@@ -189,10 +189,10 @@ void runner(void)
 TEST_GROUP_RUNNER(testCos)
 {
 	RUN_TEST_CASE(testCos, cosNormalCases);
-	RUN_TEST_CASE(testCos, cosEdgesCases);
-	RUN_TEST_CASE(testCos, cosParityCases);
-	RUN_TEST_CASE(testCos, cosFrequencyCases);
-	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
+//	RUN_TEST_CASE(testCos, cosEdgesCases);
+//	RUN_TEST_CASE(testCos, cosParityCases);
+//	RUN_TEST_CASE(testCos, cosFrequencyCases);
+//	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
 }
 
 int main(int argc, char *argv[])
