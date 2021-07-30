@@ -14,8 +14,8 @@
 
 #define TOLERANCE	0.0001
 #define DELTA_RADIANS	0.00001
-#define MAXIMUM_ITERATION 10000
-#define MAXIMUM_RANDOM 1000
+#define MAXIMUM_ITERATION	10000
+#define MAXIMUM_RANDOM	1000
 
 
 TEST_GROUP(testCos);
@@ -74,12 +74,15 @@ the same randomic x - a small value DELTA_RADIANS
 TEST(testCos, cosEdgesCases)
 {
 int j;
+float radRand;
+
+radRand = rand() % MAXIMUM_RANDOM;
 
 for (j=1; j<=MAXIMUM_ITERATION; j++)
 {
-	if (cos((rand() % MAXIMUM_RANDOM) + DELTA_RADIANS) - cos((rand() % MAXIMUM_RANDOM) - DELTA_RADIANS)>TOLERANCE)
+	if (cos(radRand + DELTA_RADIANS) - cos(radRand - DELTA_RADIANS)>TOLERANCE)
 	{
-		TEST_FAIL_MESSAGE("FAILED during the Edges comparison.");
+		TEST_FAIL_MESSAGE("FAILED during the Edges comparison testing.");
 	}
 }
 TEST_PASS();
