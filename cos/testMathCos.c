@@ -34,7 +34,7 @@ TEST_TEAR_DOWN(testCos)
 
 
 /* 1. cosNormalCases
-Since we want to verify just the accuracy of cos() function for normal cases we will use remarkable angles.
+Since we want to verify just the accuracy of cos() function for normal cases we will use remarkable angles and it's enough to test the robustness.
 */
 TEST(testCos, cosNormalCases)
 {
@@ -137,15 +137,16 @@ TEST(testCos, cosFrequencyCases)
 
 	for (i=1; i<=MAXIMUM_ITERATION; i++)
 	{
+		if (cos(M_PI/6 + 2*M_PI*i) - cos(M_PI/6)>TOLERANCE)
+		{
+			TEST_FAIL_MESSAGE("FAIL")
+		}
 		if (i==500)
 		{
-			TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(M_PI));
-		}
-		else
-		{
-			TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(M_PI/6));
+			TEST_FAIL_MESSAGE("FAIL")	
 		}
 	}
+	TEST_PASS()
 
 }
 
