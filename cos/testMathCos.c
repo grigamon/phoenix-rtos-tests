@@ -108,7 +108,6 @@ for (k=1; k<=MAXIMUM_ITERATION; k++)
 	}	
 }
 TEST_PASS();
-
 }
 
 
@@ -132,32 +131,31 @@ TEST(testCos, cosPeriodicityCases)
 }
 
 /*5.cosRepeatabilityCases
+Since that the most of all cos() functions implementations use Maclaurin, it's necessary to check the repeatability of the function. For this purpose, in this test,
+we will compare a random value of angle several times.
 */
-TEST(testCos, cosRepeatability)
+TEST(testCos, cosRepeatabilityCases)
 {
-//First quadrant
-TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6), cos(M_PI/6));
-TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/4), cos(M_PI/4));
-TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/3), cos(M_PI/3));
-TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/2), cos(M_PI/2));
+int l;
+float radRandRepeatability;
 
-//Second quadrant
-TEST_ASSERT_EQUAL_FLOAT(cos(2*M_PI/3), cos(2*M_PI/3));
-TEST_ASSERT_EQUAL_FLOAT(cos(3*M_PI/4), cos(3*M_PI/4));
-TEST_ASSERT_EQUAL_FLOAT(cos(5*M_PI/6), cos(5*M_PI/6));
-TEST_ASSERT_EQUAL_FLOAT(cos(M_PI), cos(M_PI));
+radRandRepeatability = rand() % MAXIMUM_RANDOM;
 
-//Third quadrant
-TEST_ASSERT_EQUAL_FLOAT(cos(7*M_PI/6), cos(7*M_PI/6));
-TEST_ASSERT_EQUAL_FLOAT(cos(5*M_PI/4), cos(5*M_PI/4));
-TEST_ASSERT_EQUAL_FLOAT(cos(4*M_PI/3), cos(4*M_PI/3));
-TEST_ASSERT_EQUAL_FLOAT(cos(3*M_PI/2), cos(3*M_PI/2));
+for (l=1; l<=MAXIMUM_ITERATION; l++)
+{
+	comparisonValue1 = cos(radRandRepeatability);
+	comparisonValue2 = cos(radRandRepeatability);
 
-//Fourth quadrant
-TEST_ASSERT_EQUAL_FLOAT(cos(5*M_PI/3), cos(5*M_PI/3));
-TEST_ASSERT_EQUAL_FLOAT(cos(7*M_PI/4), cos(7*M_PI/4));
-TEST_ASSERT_EQUAL_FLOAT(cos(11*M_PI/6), cos(11*M_PI/6));
-TEST_ASSERT_EQUAL_FLOAT(cos(2*M_PI), cos(2*M_PI));
+	if (comparisonValue1-comparisonValue2>TOLERANCE)
+	{
+		TEST_FAIL_MESSAGE("FAILED during the Repeatabilitty check testing.");
+	}
+	if (l==500)
+	{
+		TEST_FAIL_MESSAGE("FAILED during the Repeatabilitty sanity check testing.");
+	}	
+}
+TEST_PASS();
 }
 
 void runner(void)
@@ -171,7 +169,7 @@ TEST_GROUP_RUNNER(testCos)
 	RUN_TEST_CASE(testCos, cosEdgesCases);
 	RUN_TEST_CASE(testCos, cosParityCases);
 	RUN_TEST_CASE(testCos, cosPeriodicityCases);
-//	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
+	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
 }
 
 int main(int argc, char *argv[])
