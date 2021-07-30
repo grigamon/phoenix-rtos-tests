@@ -16,7 +16,7 @@ float tolerance = 0.0001, deltaRadians = 0.00001;
 TEST_GROUP(testCos);
 
 
-TEST_SETUP(testCos);
+TEST_SETUP(testCos)
 {
 /*
 */
@@ -124,8 +124,8 @@ TEST(testCos, cosFrequencyCases)
 {
 TEST_ASSERT_FLOAT_WITHIN(tolerance,cos(M_PI/6 + 2*M_PI), cos(M_PI/6));
 TEST_ASSERT_FLOAT_WITHIN(tolerance,cos(M_PI/4 + 2*M_PI), cos(M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(tolerance,cos(M_PI/3), cos(M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(tolerance,cos(M_PI/2, cos(M_PI/2));
+TEST_ASSERT_FLOAT_WITHIN(tolerance,cos(M_PI/3 + 2*M_PI), cos(M_PI/3));
+TEST_ASSERT_FLOAT_WITHIN(tolerance,cos(M_PI/2 + 2*M_PI), cos(M_PI/2));
 
 //Second quadrant
 TEST_ASSERT_FLOAT_WITHIN(tolerance,cos(2*M_PI/3 + 2*M_PI), cos(2*M_PI/3));
