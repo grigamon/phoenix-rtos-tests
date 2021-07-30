@@ -84,6 +84,10 @@ for (j=1; j<=MAXIMUM_ITERATION; j++)
 	{
 		TEST_FAIL_MESSAGE("FAILED during the Edges comparison testing.");
 	}
+	if (j==500)
+	{
+		TEST_FAIL_MESSAGE("FAILED sanity check");
+	}
 }
 TEST_PASS();
 
