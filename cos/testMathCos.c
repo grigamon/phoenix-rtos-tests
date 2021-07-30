@@ -254,7 +254,7 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE,cos(-2*M_PI), cos(2*M_PI));
 /*8.cosFrequencyCasesControl
 The same idea of cosFrequencyCases, but using known values.
 */
-TEST(testCos, cosFrequencyCasesControl)
+TEST(testCos, cosPeriodicityCasesControl)
 {
 TEST_ASSERT_FLOAT_WITHIN(TOLERANCE,cos(M_PI/6 + 2*M_PI), cos(M_PI/6));
 TEST_ASSERT_FLOAT_WITHIN(TOLERANCE,cos(M_PI/4 + 2*M_PI), cos(M_PI/4));
