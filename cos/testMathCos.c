@@ -176,7 +176,7 @@ void runner(void)
 TEST_GROUP_RUNNER(testCos)
 {
 	RUN_TEST_CASE(testCos, cosNormalCases);
-//	RUN_TEST_CASE(testCos, cosEdgesCases);
+	RUN_TEST_CASE(testCos, cosEdgesCases);
 //	RUN_TEST_CASE(testCos, cosParityCases);
 	RUN_TEST_CASE(testCos, cosPeriodicityCases);
 //	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
