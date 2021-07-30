@@ -7,13 +7,15 @@
 */
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "unity_fixture.h"
 
 
 #define TOLERANCE	0.0001
 #define DELTA_RADIANS	0.00001
-#define MAXIMUM_ITERATION 1000
+#define MAXIMUM_ITERATION 10000
+#define MAXIMUM_RANDOM 1000
 
 
 TEST_GROUP(testCos);
@@ -34,7 +36,7 @@ TEST_TEAR_DOWN(testCos)
 
 
 /* 1. cosNormalCases
-Since we want to verify the accuracy of cos() function for normal cases we will use remarkable angles.
+Since we want to verify the accuracy of cos() function for normal cases, we will use remarkable angles as strategy to verify the results because their values are known.
 */
 TEST(testCos, cosNormalCases)
 {
@@ -71,30 +73,17 @@ the same randomic x - a small value DELTA_RADIANS
 */
 TEST(testCos, cosEdgesCases)
 {
-//First quadrant + DELTA_RADIANS
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 1.0, cos(0 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.86602, cos(M_PI/6 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.70710, cos(M_PI/4 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.5, cos(M_PI/3 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0, cos(M_PI/2 + DELTA_RADIANS));
+int j;
 
-//Second quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, -0.5, cos(2*M_PI/3 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, -0.70710, cos(3*M_PI/4 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, -0.86602, cos(5*M_PI/6 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, -1.0, cos(M_PI + DELTA_RADIANS));
+for (j=1; j<=MAXIMUM_ITERATION; j++)
+{
+	if (cos((rand() % MAXIMUM_RANDOM) + DELTA_RADIANS) - cos((rand() % MAXIMUM_RANDOM) - DELTA_RADIANS)>TOLERANCE)
+	{
+		TEST_FAIL_MESSAGE("FAILED during the Edges comparison.");
+	}
+}
+TEST_PASS();
 
-//Third quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, -0.86602, cos(7*M_PI/6 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, -0.70710, cos(5*M_PI/4 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, -0.5, cos(4*M_PI/3 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0, cos(3*M_PI/2 + DELTA_RADIANS));
-
-//Fourth quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.5, cos(5*M_PI/3 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.70710, cos(7*M_PI/4 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.86602, cos(11*M_PI/6 + DELTA_RADIANS));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 1.0, cos(2*M_PI + DELTA_RADIANS));
 }
 
 
@@ -147,7 +136,8 @@ TEST(testCos, cosPeriodicityCases)
 
 }
 
-//5.cosRepeatabilityCases
+/*5.cosRepeatabilityCases
+*/
 TEST(testCos, cosRepeatability)
 {
 //First quadrant
