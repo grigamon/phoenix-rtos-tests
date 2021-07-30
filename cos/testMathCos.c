@@ -18,8 +18,8 @@
 
 #define TOLERANCE	0.0001
 #define DELTA_RADIANS	0.00001
-#define MAXIMUM_ITERATION	10000
-#define MAXIMUM_RANDOM	1000
+#define MAXIMUM_ITERATION	10000 //could be adjusted
+#define MAXIMUM_RANDOM	1000 //could be adjusted
 
 
 TEST_GROUP(testCos);
