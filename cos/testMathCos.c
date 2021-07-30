@@ -64,6 +64,9 @@ TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.5, cos(5*M_PI/3));
 TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.70710, cos(7*M_PI/4));
 TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.86602, cos(11*M_PI/6));
 TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 1.0, cos(2*M_PI));
+
+//Sanity check test
+TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, 0.5, cos(0));
 }
 
 
@@ -150,10 +153,6 @@ for (l=1; l<=MAXIMUM_ITERATION; l++)
 	{
 		TEST_FAIL_MESSAGE("FAILED during the Repeatabilitty check testing.");
 	}
-	if (l==500)
-	{
-		TEST_FAIL_MESSAGE("FAILED during the Repeatabilitty sanity check testing.");
-	}	
 }
 TEST_PASS();
 }
