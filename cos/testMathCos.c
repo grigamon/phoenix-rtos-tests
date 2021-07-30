@@ -103,7 +103,7 @@ TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(-M_PI/2), cos(M_PI/2));
 TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(-2*M_PI/3), cos(2*M_PI/3));
 TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(-3*M_PI/4), cos(3*M_PI/4));
 TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(-5*M_PI/6), cos(5*M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(tolerance,c os(-M_PI), cos(M_PI));
+TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(-M_PI), cos(M_PI));
 
 //Third quadrant
 TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(-7*M_PI/6), cos(7*M_PI/6));
@@ -130,7 +130,7 @@ TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(M_PI/2 + 2*M_PI), cos(M_PI/2));
 //Second quadrant
 TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(2*M_PI/3 + 2*M_PI), cos(2*M_PI/3));
 TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(3*M_PI/4 + 2*M_PI), cos(3*M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(tolerance,c os(5*M_PI/6 + 2*M_PI), cos(5*M_PI/6));
+TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(5*M_PI/6 + 2*M_PI), cos(5*M_PI/6));
 TEST_ASSERT_FLOAT_WITHIN(tolerance, cos(M_PI + 2*M_PI), cos(M_PI));
 
 //Third quadrant
