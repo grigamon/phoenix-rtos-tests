@@ -137,7 +137,7 @@ TEST(testCos, cosFrequencyCases)
 
 	for (i=1; i<=MAXIMUM_ITERATION; i++)
 	{
-		TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i+1), cos(M_PI/6));
+		TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(M_PI));
 	}
 
 }
