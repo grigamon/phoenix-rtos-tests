@@ -137,8 +137,14 @@ TEST(testCos, cosFrequencyCases)
 
 	for (i=1; i<=MAXIMUM_ITERATION; i++)
 	{
-		TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(13*M_PI/6));
-		printf("%d", i);
+		if (i==500)
+		{
+			TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(M_PI));
+		}
+		else
+		{
+			TEST_ASSERT_EQUAL_FLOAT(cos(M_PI/6 + 2*M_PI*i), cos(M_PI/6));
+		}
 	}
 
 }
