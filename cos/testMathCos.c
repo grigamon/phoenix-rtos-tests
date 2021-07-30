@@ -84,10 +84,6 @@ for (j=1; j<=MAXIMUM_ITERATION; j++)
 	{
 		TEST_FAIL_MESSAGE("FAILED during the Edges comparison testing.");
 	}
-	if (j==500)
-	{
-		TEST_FAIL_MESSAGE("FAILED sanity check");
-	}
 }
 TEST_PASS();
 
@@ -95,32 +91,28 @@ TEST_PASS();
 
 
 /*3.cosParityCases
+For this group of tests we will exercise the parity of cos() functions, using randomic values as inputs to validate the assertion cos x = cos(-x).
 */
 TEST(testCos, cosParityCases)
 {
-//First quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-M_PI/6), cos(M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-M_PI/4), cos(M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-M_PI/3), cos(M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-M_PI/2), cos(M_PI/2));
+int k;
+float radRandParity;
 
-//Second quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-2*M_PI/3), cos(2*M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-3*M_PI/4), cos(3*M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-5*M_PI/6), cos(5*M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-M_PI), cos(M_PI));
+radRandParity = rand() % MAXIMUM_RANDOM;
 
-//Third quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-7*M_PI/6), cos(7*M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-5*M_PI/4), cos(5*M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-4*M_PI/3), cos(4*M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-3*M_PI/2), cos(3*M_PI/2));
+for (k=1; k<=MAXIMUM_ITERATION; k++)
+{
+	if (cos(-radRandParity)!=cos(radRandParity))
+	{
+		TEST_FAIL_MESSAGE("FAILED during the Parity check testing.");
+	}
+	if (k==500)
+	{
+		TEST_FAIL_MESSAGE("FAILED during the Parity check testing (500).");	
+	}
+}
+TEST_PASS();
 
-//Fourth quadrant
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-5*M_PI/3), cos(5*M_PI/3));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-7*M_PI/4), cos(7*M_PI/4));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-11*M_PI/6), cos(11*M_PI/6));
-TEST_ASSERT_FLOAT_WITHIN(TOLERANCE, cos(-2*M_PI), cos(2*M_PI));
 }
 
 
@@ -181,7 +173,7 @@ TEST_GROUP_RUNNER(testCos)
 {
 	RUN_TEST_CASE(testCos, cosNormalCases);
 	RUN_TEST_CASE(testCos, cosEdgesCases);
-//	RUN_TEST_CASE(testCos, cosParityCases);
+	RUN_TEST_CASE(testCos, cosParityCases);
 	RUN_TEST_CASE(testCos, cosPeriodicityCases);
 //	RUN_TEST_CASE(testCos, cosRepeatabilityCases);
 }
