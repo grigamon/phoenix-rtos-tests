@@ -139,11 +139,11 @@ TEST(testCos, cosFrequencyCases)
 	{
 		if (cos(M_PI/6 + 2*M_PI*i) - cos(M_PI/6)>TOLERANCE)
 		{
-			TEST_FAIL_MESSAGE("FAIL");
+			TEST_FAIL_MESSAGE("FAIL BLA BLA TOLERANCE");
 		}
 		if (i==500)
 		{
-			TEST_FAIL_MESSAGE("FAIL");
+			TEST_FAIL_MESSAGE("FAIL BLA BLA");
 		}
 	}
 	TEST_PASS();
