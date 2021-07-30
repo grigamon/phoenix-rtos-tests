@@ -137,7 +137,7 @@ we will compare a random value of angle several times.
 TEST(testCos, cosRepeatabilityCases)
 {
 int l;
-float radRandRepeatability;
+float radRandRepeatability, comparisonValue1, comparisonValue2;
 
 radRandRepeatability = rand() % MAXIMUM_RANDOM;
 
